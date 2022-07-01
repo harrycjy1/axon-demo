@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+spring:
+  data:
+    mongodb:
+      uri: ${URI:mongodb://admin:1234@localhost:27017/axon-demo?authSource=admin}
+      database: axon-demo
+      auto-index-creation: false
+      uuid-representation: standard
+  profiles:
+    active: prod
