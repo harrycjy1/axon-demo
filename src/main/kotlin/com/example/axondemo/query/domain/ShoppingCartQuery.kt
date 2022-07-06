@@ -1,7 +1,7 @@
 package com.example.axondemo.query.domain
 
-import com.example.axondemo.member.domain.aggregate.Item
-import com.example.axondemo.member.util.now
+import com.example.axondemo.shoppingcart.domain.aggregate.Item
+import com.example.axondemo.shoppingcart.util.now
 import java.time.OffsetDateTime
 import java.util.UUID
 import org.bson.types.ObjectId

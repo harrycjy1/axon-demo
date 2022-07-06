@@ -1,11 +1,11 @@
-package com.example.axondemo.member.domain.aggregate
+package com.example.axondemo.shoppingcart.domain.aggregate
 
-import com.example.axondemo.member.application.port.`in`.command.AddItemToCartCommand
-import com.example.axondemo.member.application.port.`in`.command.CreateShoppingCartCommand
-import com.example.axondemo.member.application.port.`in`.command.RemoveItemFromCartCommand
-import com.example.axondemo.member.application.port.output.event.ItemAddedToCartEvent
-import com.example.axondemo.member.application.port.output.event.ItemRemovedFromCartEvent
-import com.example.axondemo.member.application.port.output.event.ShoppingCartCreatedEvent
+import com.example.axondemo.shoppingcart.application.port.`in`.command.AddItemToCartCommand
+import com.example.axondemo.shoppingcart.application.port.`in`.command.CreateShoppingCartCommand
+import com.example.axondemo.shoppingcart.application.port.`in`.command.RemoveItemFromCartCommand
+import com.example.axondemo.shoppingcart.application.port.output.event.ItemAddedToCartEvent
+import com.example.axondemo.shoppingcart.application.port.output.event.ItemRemovedFromCartEvent
+import com.example.axondemo.shoppingcart.application.port.output.event.ShoppingCartCreatedEvent
 import java.util.UUID
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
@@ -19,9 +19,8 @@ import org.axonframework.spring.stereotype.Aggregate
 class ShoppingCart {
 
     @AggregateIdentifier
-    private lateinit var cartId: UUID
-
-    private val items: MutableList<Item> = mutableListOf()
+    lateinit var cartId: UUID
+    val items: MutableList<Item> = mutableListOf()
 
     // axon required
     protected constructor()

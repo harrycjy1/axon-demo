@@ -10,3 +10,8 @@ spring:
       uuid-representation: standard
   profiles:
     active: prod
+
+logging:
+  level:
+    org.axonframework : debug
+    org.springframework.data: debug

@@ -1,6 +1,6 @@
 package com.example.axondemo.query.adapter.output.persistence
 
-import com.example.axondemo.member.domain.aggregate.Item
+import com.example.axondemo.shoppingcart.domain.aggregate.Item
 import com.example.axondemo.query.application.port.out.CreateShoppingCartQueryPort
 import com.example.axondemo.query.application.port.out.GetShoppingCartQueryPort
 import com.example.axondemo.query.application.port.out.UpdateShoppingCartQueryPort

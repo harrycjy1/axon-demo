@@ -1,8 +1,8 @@
-package com.example.axondemo.member.application.port.output.event
+package com.example.axondemo.shoppingcart.application.port.output.event
 
 import java.time.OffsetDateTime
 import java.util.UUID
-import com.example.axondemo.member.util.now
+import com.example.axondemo.shoppingcart.util.now
 
 interface ShoppingCartEvent {
     val cartId: UUID

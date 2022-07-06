@@ -10,7 +10,6 @@ interface ShoppingCartQueryUseCase {
     fun createShoppingCartQuery(cartId: UUID): Mono<ShoppingCartQuery>
 
     fun getAllShoppingCarts(): Flux<ShoppingCartQuery>
-
     fun addItemToCart(cartId: UUID, itemId: UUID): Mono<ShoppingCartQuery>
 
     fun removeItemFromCart(cartId: UUID, itemId: UUID): Mono<ShoppingCartQuery>

@@ -1,4 +1,4 @@
-package com.example.axondemo.member.util
+package com.example.axondemo.shoppingcart.util
 
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
