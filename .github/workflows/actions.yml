@@ -1,0 +1,29 @@
+name: Check Main Branch Merge
+
+on:
+  pull_request:
+    branches:
+      - release/**
+
+jobs:
+  check-main-merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Main Branch Merge
+        run: |
+          #!/bin/bash
+
+          # Fetch all branches and their latest commit hashes
+          git fetch origin "+refs/heads/*:refs/remotes/origin/*" --quiet
+
+          # Get the latest commit hash of the main branch
+          main_commit=$(git rev-parse origin/main)
+
+          # Check if the pull request contains the main branch commit
+          if git log --oneline "$main_commit..HEAD" | grep -q "$main_commit"; then
+            echo "Status check passed: Changes are merged into main."
+          else
+            echo "Status check failed: Changes are not merged into main."
+            exit 1
+          fi
