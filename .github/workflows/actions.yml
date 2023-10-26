@@ -22,7 +22,7 @@ jobs:
 
       - name: Check Commits in Main Branch
         run: |
-          main_branch="origin/main"
+          main_branch="main"
           exit_code=0
 
           IFS=$'\n' read -rd '' -a commit_ids <<<"${COMMIT_IDS}"
