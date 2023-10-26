@@ -10,20 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Check Main Branch Merge
         run: |
           #!/bin/bash
 
           # Fetch all branches and their latest commit hashes
-          git fetch origin "+refs/heads/*:refs/remotes/origin/*" --quiet
+          # git fetch origin "+refs/heads/*:refs/remotes/origin/*" --quiet
 
-          # Get the latest commit hash of the main branch
-          main_commit=$(git rev-parse origin/main)
-
-          # Check if the pull request contains the main branch commit
-          if git log --oneline "$main_commit..HEAD" | grep -q "$main_commit"; then
-            echo "Status check passed: Changes are merged into main."
+          # Check if the pull request contains commits from the main branch
+          if git merge-base --is-ancestor origin/main HEAD; then
+            echo "PR has been merged into main."
+            exit 0
           else
-            echo "Status check failed: Changes are not merged into main."
+            echo "Error: PR must be merged into main before merging into release."
             exit 1
           fi

@@ -9,6 +9,7 @@ import com.example.axondemo.shoppingcart.application.port.`in`.RemoveItemUseCase
 import com.example.axondemo.shoppingcart.application.port.`in`.command.AddItemToCartCommand
 import com.example.axondemo.shoppingcart.application.port.`in`.command.CreateShoppingCartCommand
 import com.example.axondemo.shoppingcart.application.port.`in`.command.RemoveItemFromCartCommand
+import kotlin.streams.toList
 import org.axonframework.eventsourcing.eventstore.EventStore
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.springframework.stereotype.Service
@@ -50,6 +51,15 @@ class ShoppingCartService(
 
     private fun getVersion(identifier: String): Long {
         return eventStore.lastSequenceNumberFor(identifier).orElse(0)
+    }
+
+    fun readEvents(identifier: String): Any {
+
+        val result = eventStore.readEvents(identifier).asStream().map {
+            it.payload
+        }.toList()
+
+        return result
     }
 
 
