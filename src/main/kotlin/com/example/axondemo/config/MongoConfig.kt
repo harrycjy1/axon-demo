@@ -14,6 +14,7 @@ import org.springframework.core.convert.converter.Converter
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions
 
+// new features
 @Configuration
 class MongoConfig(
     private val mongoProperties: MongoProperties
