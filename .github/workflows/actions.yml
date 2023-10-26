@@ -26,6 +26,8 @@ jobs:
           exit_code=0
 
           IFS=$'\n' read -rd '' -a commit_ids <<<"${COMMIT_IDS}"
+          
+          echo "Checking commits: ${commit_ids[@]}"
 
           for commit_id in "${commit_ids[@]}"; do
               if ! git branch --contains "$commit_id" | grep -q "$main_branch"; then
