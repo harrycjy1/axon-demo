@@ -21,7 +21,7 @@ jobs:
           # git fetch origin "+refs/heads/*:refs/remotes/origin/*" --quiet
 
           # Check if the pull request contains commits from the main branch
-          if git merge-base --is-ancestor mockmain HEAD; then
+          if git merge-base --is-ancestor main HEAD; then
             echo "PR has been merged into main."
             exit 0
           else
