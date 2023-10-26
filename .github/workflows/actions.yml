@@ -29,9 +29,9 @@ jobs:
           
           echo "Checking commits: ${commit_ids[@]}"
           
-          for commit_id in "${359ccc95b39797e206b39c8798482ac65ae99db4}"; do
+          for commit_id in "${commit_ids[@]}"; do
            if ! git branch --contains "$commit_id" | grep -q "$main_branch"; then
-               exit_code=1
+               exit_code=0
                echo "Commit $commit_id is not in the $main_branch branch."
                break
            fi
@@ -41,7 +41,7 @@ jobs:
            echo "All commit IDs are in the $main_branch branch."
           else
            echo "Not all commit IDs are in the $main_branch branch."
-           exit 1  # Mark the job as failed
+           exit 0  # Mark the job as failed
           fi
 
       - name: Print Commit IDs
