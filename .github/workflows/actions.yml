@@ -6,25 +6,37 @@ on:
       - release/**
 
 jobs:
-  check-main-merge:
+  check_commits:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Check Main Branch Merge
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get Commit IDs
+        id: get_commits
         run: |
-          #!/bin/bash
+          COMMIT_IDS=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                        "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/commits" | \
+                        jq -r '.[].sha')
+          echo "::set-output name=commit_ids::${COMMIT_IDS}"
 
-          # Fetch all branches and their latest commit hashes
-          # git fetch origin "+refs/heads/*:refs/remotes/origin/*" --quiet
+      - name: Check Commits in Main Branch
+        run: |
+          main_branch="main"
+          exit_code=0
 
-          # Check if the pull request contains commits from the main branch
-          if git merge-base --is-ancestor origin/main HEAD; then
-            echo "PR has been merged into main."
-            exit 0
-          else
-            echo "Error: PR must be merged into main before merging into release."
-            exit 1
+          IFS=$'\n' read -rd '' -a commit_ids <<<"${COMMIT_IDS}"
+
+          for commit_id in "${commit_ids[@]}"; do
+              if ! git branch --contains "$commit_id" | grep -q "$main_branch"; then
+                  exit_code=1
+                  echo "Commit $commit_id is not in the $main_branch branch."
+                  break
+              fi
+          done
+
+          if [ $exit_code -eq 0 ]; then
+              echo "All commit IDs are in the $main_branch branch."
           fi
+
+          exit $exit_code
