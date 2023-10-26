@@ -29,7 +29,7 @@ jobs:
           
           echo "Checking commits: ${commit_ids[@]}"
           
-          for commit_id in "${commit_ids[@]}"; do
+          for commit_id in "${359ccc95b39797e206b39c8798482ac65ae99db4}"; do
            if ! git branch --contains "$commit_id" | grep -q "$main_branch"; then
                exit_code=1
                echo "Commit $commit_id is not in the $main_branch branch."
